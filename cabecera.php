@@ -1,3 +1,4 @@
+<?php require_once 'config/config.php' ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -68,9 +69,9 @@ http://www.falconmasters.com/web-design/tutorial-menu-de-navegacion-fijo/
           
             <ul>
                 <li><div id="logo"><img src="img/logo-amco.png" alt="amco" height="75" ></div></li>
-                <li><a href="principal.php">Inicio</a></li>
-                <li><a href="http://localhost/SRTPM/solicitud_H_extendido.php">Solicitudes horario extendido</a></li>
-                <li><a href="http://localhost/SRTPM/solicitud_parrillero.php">Solicitudes Parrillero</a></li>  
+                <li><a href=" <?php echo URL?>principal.php">Inicio</a></li>
+                <li><a href=" <?php echo URL?>solicitud_H_extendido.php">Solicitudes horario extendido</a></li>
+                <li><a href=" <?php echo URL?>solicitud_parrillero.php">Solicitudes Parrillero</a></li>  
             </ul>
 
     </nav >

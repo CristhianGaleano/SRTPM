@@ -43,7 +43,17 @@ function buscarUserBD($user,$pass,$con)
 }
 
 
+function buscarSolicitudesHE($con)
+{
+	$sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellidos,fecha_solicitud,propietario_moto.direccion,propietario_moto.telefono,email,estado FROM propietario_moto, permiso_horario_extendido, empresa where propietario_moto.cedula_propietario = permiso_horario_extendido.cedula_propietario and empresa.nit = permiso_horario_extendido.nit';
+	$statement = $con->prepare($sql);
+	#var_dump($statement);
+	$statement->execute();
+	$result= $statement->fetchAll();
+	#var_dump($result);
+	return $result;
 
+}
 	
  ?>
 

@@ -1,11 +1,16 @@
 
 <?php
-require('cabecera.php');
-require('connect_bd.php');
+require_once 'cabecera.php';
+require_once 'config/config.php';
+require_once 'procesar/Conexion.php';
+require_once 'procesar/operaciones.php';
+
+$con = getConexion($bd_config);
+
 /*http://jpsprogramacion.es/ordenar-tablas-con-jquery-tablesorter/*/
-$sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellidos,fecha_solicitud,propietario_moto.direccion,propietario_moto.telefono,email,estado FROM propietario_moto, permiso_horario_extendido, empresa where propietario_moto.cedula_propietario = permiso_horario_extendido.cedula_propietario and empresa.nit = permiso_horario_extendido.nit';
-        $consulta = pg_query($sql) or die ('Error query' . pg_last_error());
-        
+        #$consulta = pg_query($sql) or die ('Error query' . pg_last_error());
+
+$result = buscarSolicitudesHE($con);        
 
 ?>
 <div id="encierra-solicitudP">
@@ -29,7 +34,9 @@ $sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellido
       
         </thead>
 <tbody>
-        <?php while ($row = pg_fetch_array($consulta)) { ?>
+        <?php  
+        foreach ($result as $row) {
+            ?>
             <tr>
 
                  <td><?php echo $row['cedula_propietario'];?></td>
@@ -41,8 +48,6 @@ $sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellido
                 <td><?php echo $row['telefono']; ?></td>
                 <td><?php echo $row['estado']; ?></td>
                 <?php echo "<td><a href='area_permisos_extendidos.php?id=".$row['cedula_propietario']."'><img src='img/pencil113.png' height='26'></a></td>";?>
-
-                
             </tr>
           <?php } ?>
         </tbody>

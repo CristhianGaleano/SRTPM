@@ -1,3 +1,4 @@
+<?php require_once 'config/config.php'; ?>
 <!doctype html>
 <html>
 <head>
@@ -16,8 +17,8 @@
         <div id="logo">
         <ul>
             <li style="padding-left: 50px;"><a href="http://amco.gov.co/" target="_blank"><img src="img/logo-amco.png" alt="amco" height="75" ></a></li>
-            <li style="padding-left: 190px;"><a href="http://localhost/SRTPM/formulario_permisoH_extendido.php" target="_blank"><img src="img/horario-extendido.png" alt="amco" height="75" ></a></li>
-            <li style="padding-left: 20px;"><a href="http://localhost/SRTPM/formulario_permiso_parrillero1.php" target="_blank"><img src="img/permiso-parrrillero.png" alt="amco" height="75"></a></li>
+            <li style="padding-left: 190px;"><a href=" <?php echo URL?>formulario_permisoH_extendido.php" target="_blank"><img src="img/horario-extendido.png" alt="amco" height="75" ></a></li>
+            <li style="padding-left: 20px;"><a href=" <?php echo URL?>formulario_permiso_parrillero1.php" target="_blank"><img src="img/permiso-parrrillero.png" alt="amco" height="75"></a></li>
         </ul>       
         </div>
 

@@ -1,0 +1,228 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+p {
+  margin-bottom: 20px;
+}
+.wrapper {
+  width: 100%;
+  height: 95%;
+  margin: auto;
+  overflow:hidden;
+}
+header {
+  background-color: rgba(221, 255, 229, 0.7);
+  width: 1500px;
+  position: fixed;
+  z-index: 10;
+}
+
+nav {
+  /*float: left; /* Desplazamos el nav hacia la izquierda */
+  /*height: 55px;*/
+  padding: 10px;
+}
+nav ul {
+  list-style: none;
+  overflow: hidden; /* Limpiamos errores de float */
+}
+nav ul li {
+  float: left;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+
+body{
+  background-color: #FFF;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+div#encierra-solicitudP{
+  background-color: rgba(141, 226, 255, 0.9);
+}
+
+.sesion{
+  
+  background: tomato;
+  width: 70px;
+  height: 60px;
+}
+
+.sesion a{
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  list-style: none;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.sesion:hover {
+  background: #3ead47;
+}
+
+nav ul li a {
+  display: block; /* Convertimos los elementos a en elementos bloque para manipular el padding */
+  padding-top: 30px;
+  padding-left: 10px;
+  padding-bottom: 16px;
+  padding-right: 5px;
+  color: black;
+  text-decoration: none;
+}
+nav ul li:hover {
+  background: #3ead47;
+}
+
+
+
+.error{color: red;}
+
+
+.contenido {
+  padding-top: 100px;
+  width: 90%;
+}
+
+/*titulo formulario permiso extendido*/
+#titulo{
+  width: 100%;
+  background-color: rgba(28, 105, 88, 0.9);
+  color: white;
+}
+/*estilo  formulario extendido*/
+#envoltura{
+  width: 100%
+  vertical-align: top;
+}
+
+.header{
+ background-color: blue;
+ width: 100%;
+ height: 100px;
+}
+
+#contenedor-formulario, .barra-lateral{
+  vertical-align: top;/*Alinear */
+  display: inline-block;
+}
+#contenedor-formulario h2, .barra-lateral h3{
+  padding-bottom: 15px;
+}
+
+#contenedor-formulario{
+  background-color: #FFF;
+  width: 70%;
+  margin-left: 40px;
+}
+
+#contenedor-formulario h2{
+  font-size: 2em;
+  font-family: "Roboto Slab" ,  sans-serif;
+  text-align: center;
+}
+
+#cajas{
+  border-radius: 8px 8px 8px 8px;
+}
+
+.barra-lateral{
+  height: 798px;
+  width: 15;
+  padding: 8px;
+  background-color: white; 
+}
+
+.barra-lateral h3{
+  font-size: 1.8em;
+ text-align: center;
+}
+
+
+
+/*----------------------------------------------------------------------------------*/
+
+/*estilo archivo*/
+
+#iframe{
+  width: 90%;
+  height: 1000px;
+}
+
+/*
+estilo area de permisos parrrillero
+--------------------------------------------------------------------------------------------
+*/
+.envoltura-areaPP{
+  margin: 0 auto;
+  width: 90%;
+  background: #FFF;
+
+}
+
+
+  .envoltura-datos-parri{
+  background-color: rgba(154, 210, 185, 0.6);
+  border-radius: 7px 7px 7px 7px;
+  margin-top: 10px;
+  padding: 5px;
+  text-align: center;
+  }
+
+  .datos-area-propietario{
+
+  }
+
+  .datos-area-archivos-propietario{
+
+  }
+
+  .datos-area-parrillero{
+
+  }
+
+  .datos-area-permiso-parrillero{
+
+  }
+
+
+
+
+/*pie de pagina
+--------------------------------------------------------------------------------------------
+*/
+
+
+
+/*----------------------------nuevos estilos del formulario-------------------------*/
+form.borde {border: 1px dotted #0066CC; padding: 0.5em 2em; width: 91%;}
+form p {clear: left; margin: 0.2em; padding: 0.1em;}
+form p label {float: left; width: 25%; font-weight: bold;}
+form p label.doble_columna{width: 50%;}
+
+/*
+-------------------------------------------------------------------------------------
+estilos footer*/
+footer{
+  width: 100%;
+  color: #000000;
+  background:#FFF;
+  text-align: center;
+}
+
+#logos_footer{
+    margin: 0% 25%;
+}
+
+#logos_footer ul{
+    list-style: none;
+    overflow: auto;    z-index: 99999;
+}
+#logos_footer ul li{
+float: left;
+display: inline-block;
+}

@@ -1,0 +1,70 @@
+$sql = "INSERT INTO propietario_moto(
+            cedula_propietario, nombre_propietario,apellidos, fecha_naci_propietario,direccion, email, telefono,cedula_escaneada_propietario, tarjeta_propieda, 
+            certificado_vecinda, licensia_conduccion, soat, registro_civil, 
+            seguro, passalvo_transito, pasado_judicial, foto)
+    VALUES ('".$cc."','".$nombre."','".$apellidos."','".$fecha_nacimiento."','".$direccion."','".$email."','".$telefono."', '".$cedula."','".$tarjetaP."','".$certificadoV."','".$licenciaC."','".$soat."','".$registroC."','".$seguro."','".$passalvo."','".$pasadoJ."','".$foto."')";
+            
+            http://www.tuwebonada.com/blog/articulos/como-validar-formularios-con-jquery.html
+           
+
+           <thead>
+            <tr>
+                <th>Documento</th>
+                <th>Nombres</th>
+				<th>Apellidos</th>
+                <th>Fecha Nacimiento</th>
+                <th>Direccion</th>
+                <th>E-mail</th>
+                <th>Telefono</th>
+                
+            </tr>
+      
+        </thead>
+        <?php
+        
+        $sql = 'SELECT * FROM propietario_moto';
+        $consulta = pg_query($sql) or die ('Error query' . pg_last_error());
+        while ($row = pg_fetch_array($consulta)) {
+            ?>
+            <tbody>
+            <tr>
+                <td><?php echo $row['cedula_propietario'];?></td>
+                <td><?php echo $row['nombre_propietario'];?></td>    
+                <td><?php echo $row['apellidos'];?></td>
+                <td><?php echo $row['fecha_naci_propietario']; ?></td>
+                <td><?php echo $row['direccion']; ?></td>
+                <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['telefono']; ?></td>
+                <!--
+                NO MOSTRAMOS LA SGTE INFO
+                <td><?php //echo "<img src=\"uploads/" . $row['cedula_escaneada_propietario'] . "\"/>";?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['tarjeta_propieda'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['tarjeta_propieda'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['certificado_vecinda'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['lisencia_conduccion'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['soat'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['registro_civil'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['seguro'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['passalvo_transito'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['pasado_judicial'] . "\"/>" ;?></td>
+                <td><?php //echo "<img src=\"uploads/" . $row['foto'] . "\"/>" ; ?></td>
+                -->
+            </tr>
+            <?php
+        }
+        ?>
+        
+        <td><input type="date" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Fecha de nacimiento"></td>
+
+        --------------------------------------------------------------------------------------------------
+        <label><input type="date" style="height:25px;"   name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Fecha de nacimiento"
+        <?PHP     
+            if (isset($_POST['upload']))
+                print (" VALUE='$fecha_nacimiento'>\n");
+            else
+                print ("\n");
+            if ($errores["fecha_nacimiento"] != "")
+                print ("<BR><SPAN CLASS='error'>" . $errores["fecha_nacimiento"] . "</SPAN>");
+        ?>
+    ></label>
+    </p>

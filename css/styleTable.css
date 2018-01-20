@@ -1,0 +1,30 @@
+/* Tabla ********************************************/
+table{
+
+    /*Para centrar */
+    margin:0 auto 0 auto;
+}
+
+
+th.header { 
+    background:#DDD url(img/arriba_abajo.png) center left no-repeat;  
+		color: #000; 
+		/*Cambio de cursor(dedo) */
+    cursor: pointer; 
+    padding-left: 20px; 
+		padding-right: 20px; 
+		
+} 
+
+th.headerSortDown { 
+    background-image: url(img/abajo.png); 
+    background-color: #BC1029;
+		color: #FFF; 
+} 
+
+th.headerSortUp { 
+    background-image: url(img/arriba.png); 
+    background-color: #BC1029; 
+		color: #FFF; 
+} 
+/* Fin tabla ****************************************/

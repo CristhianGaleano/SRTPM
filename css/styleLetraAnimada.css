@@ -1,0 +1,51 @@
+.contenedor{
+    /*ahora para que un elemento este alineado uno con otro usamos la propieda dysplay:flex*/
+    display: flex;
+    width: 300px;
+    height: 40px;
+    font-size: 17px;
+    color:tomato;
+    /*alto de linea para cuando el texto suba encaje en el contenedor*/
+    line-height: 40px;
+    
+    /*vamos a centrar este elemento con las proximas 6 lineas
+    que van a jalar a cada lado*/
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    
+    /*ahora para evitar que los elementos fuera se muestren pues los ocultamos con la propieda overflow: hiden*/
+    
+    overflow: hidden;
+}
+
+.contenedor ul{
+    list-style: none;
+    /*por defecto el padding del ul viene de 40px vamos a modificarlo*/
+    padding-left: 10px;
+    /*creamo una animacion*/
+    animation: cambiar 7s infinite;
+}
+
+.contenedor p,ul{
+    margin: 0;
+}
+
+@keyframes cambiar{
+    0%{margin-top: 0;}
+    25%{margin-top: 0;}
+    
+    50%{margin-top: -80px;}
+    80%{margin-top: -80px;}
+    
+    55%{margin-top: -80px;}
+    80%{margin-top: -80px;}
+    
+    85%{margin-top: -40px;}
+    95%{margin-top: -40px;}
+    
+    100%{margin-top: 0px;}
+}

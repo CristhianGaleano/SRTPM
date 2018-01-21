@@ -54,6 +54,60 @@ function buscarSolicitudesHE($con)
 	return $result;
 
 }
+
+function registrarPM($nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con)
+{
+	$sql = "INSERT INTO propietario_moto(
+	            cedula_propietario, nombre_propietario,apellidos, fecha_naci_propietario,direccion, email, telefono,cedula_escaneada_propietario, tarjeta_propieda, 
+	            certificado_vecinda, licensia_conduccion, soat, registro_civil, 
+	            seguro, passalvo_transito, pasado_judicial, foto)
+	    VALUES ('".$cc."','".$nombres."','".$apellidos."','".$fecha_nacimiento."','".$direccion."','".$email."','".$telefono."', '".$cedula."','".$tarjetaP."','".$certificadoV."','".$licenciaC."','".$soat."','".$registroC."','".$seguro."','".$passalvo."','".$pasadoJ."','".$foto."')";
+
+	$statement = $con->prepare($sql);
+	#var_dump($statement);
+	$statement->execute(
+		array(
+			':usuario' => $user,
+			':password' => $pass 
+		));
+	$result= $statement->fetch();
+	#var_dump($result);
+	return $result;
+}
+
+function registrarPM($con)
+{
+	$sql = "INSERT INTO empresa(
+            nit,carta)
+    VALUES ('".$nit."','".$carta."')";
+	     
+	$statement = $con->prepare($sql);
+	#var_dump($statement);
+	$statement->execute(
+		array(
+			':usuario' => $user,
+			':password' => $pass 
+		));
+	$result= $statement->fetch();
+	#var_dump($result);
+	return $result;
+}
+
+function registrarPM($con)
+{
+	$sql = "INSERT INTO permiso_horario_extendido (fecha_solicitud,estado,cedula_propietario,nit) VALUES (CURRENT_DATE,'INICIADO','".$cc."','".$nit."')";
+	     
+	$statement = $con->prepare($sql);
+	#var_dump($statement);
+	$statement->execute(
+		array(
+			':usuario' => $user,
+			':password' => $pass 
+		));
+	$result= $statement->fetch();
+	#var_dump($result);
+	return $result;
+}
 	
  ?>
 

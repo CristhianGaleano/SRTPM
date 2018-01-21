@@ -1,12 +1,7 @@
 <?php
-	
-	include('connect_bd.php');
-	require('procesar/operaciones.php');
-	
+	require_once 'procesar/Conexion.php';
+	require_once 'procesar/operaciones.php';
 	?>
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,8 +24,6 @@
     <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
         
      <script type="text/javascript">
-     
-             
 
              $(function(){
                 $("#fecha_nacimientoPHE").datepicker({
@@ -181,26 +174,13 @@ if (isset($_POST['enviar']) && $error==false)
 	copy($_FILES['carta']['tmp_name'],$destino11);
 	$carta=$_FILES['carta']['name'];	
 
-
-	$sql = "INSERT INTO propietario_moto(
-	            cedula_propietario, nombre_propietario,apellidos, fecha_naci_propietario,direccion, email, telefono,cedula_escaneada_propietario, tarjeta_propieda, 
-	            certificado_vecinda, licensia_conduccion, soat, registro_civil, 
-	            seguro, passalvo_transito, pasado_judicial, foto)
-	    VALUES ('".$cc."','".$nombres."','".$apellidos."','".$fecha_nacimiento."','".$direccion."','".$email."','".$telefono."', '".$cedula."','".$tarjetaP."','".$certificadoV."','".$licenciaC."','".$soat."','".$registroC."','".$seguro."','".$passalvo."','".$pasadoJ."','".$foto."')";            
-           
-	$sqlE = "INSERT INTO empresa(
-            nit,carta)
-    VALUES ('".$nit."','".$carta."')";
-
-    $sqlPHE = "INSERT INTO permiso_horario_extendido (fecha_solicitud,estado,cedula_propietario,nit) VALUES (CURRENT_DATE,'INICIADO','".$cc."','".$nit."')";
     
+    $resultP = registrarPM($nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con);
+    $resultE = registrarE($con);
+    $resultPHE = registrarPHE($con);
 
 
-
-	$result = pg_query($link,$sql);
-	$resultE = pg_query($link,$sqlE);
-	 $resultPHE = pg_query($link,$sqlPHE);
-if ($result && $resultPHE && $resultE) {
+if ($resultP && $resultE && $resultPHE) {
 			echo '<script>alert("Datos enviados...")</script> ';
 			//header("location:formulario_permiso_parrillero1.php");
 		}

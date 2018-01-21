@@ -3,7 +3,7 @@
 	function getConexion($bd_config)
 	{
 		try {
-			$conexion = new PDO("mysql:host=".$bd_config['hostw'].";dbname=".$bd_config['nameBDw'],$bd_config['userNamew'],$bd_config['passwordw']);
+			$conexion = new PDO("mysql:host=".$bd_config['host'].";dbname=".$bd_config['nameBD'],$bd_config['userName'],$bd_config['password']);
 		} catch (PDOException $e) {
 			echo "Error ". $e->getMessage();
 		}

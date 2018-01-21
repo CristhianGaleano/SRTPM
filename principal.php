@@ -1,7 +1,6 @@
 <?php 
-include ("cabecera.php");
 session_start();
-
+include ("cabecera.php");
 if (!$_SESSION) {
 	header("location:index.html");
 }

@@ -1,6 +1,9 @@
 <?php
+	require_once 'config/config.php';
 	require_once 'procesar/Conexion.php';
 	require_once 'procesar/operaciones.php';
+
+	$con = getCOnexion($bd_config);
 	?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,10 +14,10 @@
 
     <link rel="shortcut icon" href="img/favicon.ico">
 
-	<link rel="stylesheet" type="text/css" href="css/estilos.css">
-    <!--<link rel="stylesheet" type="text/css" href="css/styleLetraAnimada.css">-->
-    <link rel="stylesheet" type="text/css" href="css/styleTable.css" />
-    <link rel="stylesheet" type="text/css" href="css/calendario.css">
+	<link rel="stylesheet" type="text/css" href="<?php URL ?>css/estilos.css">
+    <!--<link rel="stylesheet" type="text/css" href="<?php URL ?>css/styleLetraAnimada.css">-->
+    <link rel="stylesheet" type="text/css" href="<?php URL ?>css/styleTable.css" />
+    <link rel="stylesheet" type="text/css" href="<?php URL ?>css/calendario.css">
     
 
 	<script src="main.js"></script>
@@ -175,9 +178,9 @@ if (isset($_POST['enviar']) && $error==false)
 	$carta=$_FILES['carta']['name'];	
 
     
-    $resultP = registrarPM($nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con);
-    $resultE = registrarE($con);
-    $resultPHE = registrarPHE($con);
+    $resultP = registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con);
+    $resultE = registrarE($nit,$carta,$con);
+    $resultPHE = registrarPHE($cc,$nit,$con);
 
 
 if ($resultP && $resultE && $resultPHE) {
@@ -193,12 +196,12 @@ if ($resultP && $resultE && $resultPHE) {
       echo ("<h1>Los datos se subieron con exito</h1>\n\n");
       echo ("<p>En los proximos dias te llegara un correo con la respuesta a su solicitud</h1>\n");
       echo ("<p>Muchas gracias</p>\n");
-      echo ("<P>[ <A HREF='index.html'>Regresar al inicio</A> ]</P>\n");
+      echo ("<P>[ <A HREF='index.php'>Regresar al inicio</A> ]</P>\n");
     }
 
 
     //cerramos la conexion
-	pg_close($link);
+    closeConexion($con);
 
 		}
 else

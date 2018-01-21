@@ -11,6 +11,6 @@
 	);
 
 
-	#define('URL','http://localhost/DesarrolloWeb/PracticaPHP/SRTPM/');
-	define('URL', 'srtpm.000webhostapp.com/');
+	define('URL','http://localhost/DesarrolloWeb/PracticaPHP/SRTPM/');
+	#define('URL', 'srtpm.000webhostapp.com/');
  ?>

@@ -3,11 +3,11 @@
 	//si existe la variable de sesion nombre destruyala
 	 if ($_SESSION['nombre_user']){
 	 	session_destroy();//destruyala
-	 	header("location: index.html");//redirigir
+	 	header("location: index.php");//redirigir
 	 } else{
-	 	header("location: index.html");
+	 	header("location: index.php");
 	 }
 
 	 //cerramos la conexion
-	pg_close($link);
+	
 ?>

@@ -1,8 +1,7 @@
 <?php
-	
-	include('connect_bd.php');
+	require('procesar/Conexio.php');
 	require('procesar/operaciones.php');
-	
+	$con = getConexion();
 ?>
 
 <!DOCTYPE html>
@@ -55,10 +54,6 @@
 
 
 <?php 
-
-
-
-
 
 $errores["file_cedula"] = "";
 $errores["file_foto"] = "";
@@ -323,23 +318,15 @@ if (isset($_POST['upload']) && $error==false)
 	$edad_parrillero = $_POST['edad_parrillero'];
 	$fecha_naci_parrillero = $_POST['fecha_naci_parrillero'];
 */
-	$sql = "INSERT INTO propietario_moto(
-	            cedula_propietario, nombre_propietario,apellidos, fecha_naci_propietario,direccion, email, telefono,cedula_escaneada_propietario, tarjeta_propieda, 
-	            certificado_vecinda, licensia_conduccion, soat, registro_civil, 
-	            seguro, passalvo_transito, pasado_judicial, foto)
-	    VALUES ('".$cc."','".$nombres."','".$apellidos."','".$fecha_nacimiento."','".$direccion."','".$email."','".$telefono."', '".$cedula."','".$tarjetaP."','".$certificadoV."','".$licenciaC."','".$soat."','".$registroC."','".$seguro."','".$passalvo."','".$pasadoJ."','".$foto."')";            
-            
 
-	$sqlP = "INSERT INTO parrillero(
-            cedula_parrillero, nombres_parrillero, apellidos_parillero, edad, 
-            fecha_naci, pasado_judicial, cedula_scanner, registro_civil, 
-            cedula_propietario) VALUES('".$documento_parrillero."','".$nombres_parrillero."','".$apellidos_parrillero."','".$edad_parrillero."','".$fecha_naci_parrillero."','".$pasado_judicial_parrillero."','".$documento_identida_parrillero."','".$registro_civil_parrillero."','".$cc."')";
 
-	$sqlPP = "INSERT INTO permiso_parrillero (fecha_solicitud,estado,cedula_propietario) VALUES (CURRENT_DATE,'INICIADO','".$cc."')";
+	$resultPM = registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con); 
 
-	$result = pg_query($link,$sql);
-	$resultP = pg_query($link,$sqlP);
-	$resultPP = pg_query($link,$sqlPP);
+	$resultP = registrarParrillero($documento_parrillero,$nombres_parrillero,$apellidos_parillero,$edad_parrillero,$fecha_naci_parrillero,$pasado_judicial_parrillero,$documento_identida_parrillero,$registro_civil_parrillero,$cc,$con);
+
+	$resultPP = registrarPermisoParrillero($cc,$con);
+
+	
 		if ($result && $resultP && $resultPP) {
 			echo '<script>alert("Enviando datos...")</script> ';
 			

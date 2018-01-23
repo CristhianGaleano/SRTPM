@@ -60,6 +60,8 @@ function registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email
 	return $statement;	
 }
 
+
+
 function registrarE($nit,$carta,$con)
 {
 	$sql = "INSERT INTO empresa(nit,carta) VALUES ('".$nit."','".$carta."')";
@@ -75,6 +77,38 @@ function registrarPHE($cc,$nit,$con)
 	$statement = $con->prepare($sql);
 	$statement->execute();
 	return $statement;
+}
+
+function registrarP($cc,$nit,$con)
+{
+	$sql = "INSERT INTO permiso_horario_extendido (fecha_solicitud,estado,cedula_propietario,nit) VALUES (CURRENT_DATE,'INICIADO','".$cc."','".$nit."')";
+	     
+	$statement = $con->prepare($sql);
+	$statement->execute();
+	return $statement;
+}
+
+function registrarParrillero($documento_parrillero,$nombres_parrillero,$apellidos_parillero,$edad_parrillero,$fecha_naci_parrillero,$pasado_judicial_parrillero,$documento_identida_parrillero,$registro_civil_parrillero,$cc,$con)
+{
+	$sqlP = "INSERT INTO parrillero(
+            cedula_parrillero, nombres_parrillero, apellidos_parillero, edad, 
+            fecha_naci, pasado_judicial, cedula_scanner, registro_civil, 
+            cedula_propietario) VALUES('".$documento_parrillero."','".$nombres_parrillero."','".$apellidos_parrillero."','".$edad_parrillero."','".$fecha_naci_parrillero."','".$pasado_judicial_parrillero."','".$documento_identida_parrillero."','".$registro_civil_parrillero."','".$cc."')";
+
+            $statement = $con->prepare($sql);
+	$statement->execute();
+	return $statement;
+}
+
+function registrarPermisoParrillero($cc,$con)
+{
+	$sqlPP = "INSERT INTO permiso_parrillero (fecha_solicitud,estado,cedula_propietario) VALUES (CURRENT_DATE,'INICIADO','".$cc."')";
+
+	 $statement = $con->prepare($sql);
+	$statement->execute();
+	return $statement;
+
+
 }
 	
  ?>

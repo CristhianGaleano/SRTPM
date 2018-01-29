@@ -26,10 +26,10 @@ $result = buscarSolicitudesHE($con);
                 <th>NOMBRES</th>
                 <th>APELLIDOS</th>
                 <th>FECHA SOLICITUD</th>
-                <th>DIRECCION</th>
                 <th>E-MAIL</th>
                 <th>TELEFONO</th>
                 <th>ESTADO</th>
+                <th>EMPRESA</th>
             </tr>
       
         </thead>
@@ -43,10 +43,10 @@ $result = buscarSolicitudesHE($con);
                 <td><?php echo $row['nombre_propietario'];?></td>    
                 <td><?php echo $row['apellidos'];?></td>
                 <td><?php echo $row['fecha_solicitud']; ?></td>
-                <td><?php echo $row['direccion']; ?></td>
                 <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['telefono']; ?></td>
+                <td><?php echo $row['propietarioTelefono']; ?></td>
                 <td><?php echo $row['estado']; ?></td>
+                <td><?php echo $row['nombreEmpresa']; ?></td>
                 <?php echo "<td><a href='area_permisos_extendidos.php?id=".$row['cedula_propietario']."'><img src='img/pencil113.png' height='26'></a></td>";?>
             </tr>
           <?php } ?>

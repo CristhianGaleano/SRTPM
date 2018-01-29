@@ -3,7 +3,7 @@
 	require_once 'procesar/Conexion.php';
 	require_once 'procesar/operaciones.php';
 
-	$con = getCOnexion($bd_config);
+	$con = getConexion($bd_config);
 	?>
 <!DOCTYPE html>
 <html lang="es">
@@ -180,10 +180,10 @@ if (isset($_POST['enviar']) && $error==false)
     
     $resultP = registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con);
     $resultE = registrarE($nit,$carta,$con);
-    $resultPHE = registrarPHE($cc,$nit,$con);
+    $resultSPHE = registrarSPHE($cc,$nit,$con);
 
 
-if ($resultP && $resultE && $resultPHE) {
+if ($resultP && $resultE && $resultSPHE) {
 			echo '<script>alert("Datos enviados...")</script> ';
 			//header("location:formulario_permiso_parrillero1.php");
 		}

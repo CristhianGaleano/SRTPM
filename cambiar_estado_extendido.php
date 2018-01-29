@@ -1,21 +1,29 @@
 <?php 
 session_start();
-require('connect_bd.php');
+require_once 'config/config.php';
+require_once 'procesar/Conexion.php';
+
+$con=getConexion($bd_config);
 
 if (isset($_POST['cambiar'])) {
+	var_dump($_POST);
 	$fecha_expedicion = $_POST['fecha_expedicion'];
 	$fecha_vencimiento = $_POST['fecha_vencimiento'];
-	$estado_solicitud = $_POST['estado-solicitud'];
+	$estado_solicitud = $_POST['estado_solicitud'];
 	//$cedula_propietario = $row['cedula_propietario'];
 
 //guardamos las variables de session enviadas desde el archivo area de permisos extendidos
-$cedula_propietario = $_SESSION["id"];
+$cedula_propietario = $_SESSION["documento"];
 $email_propietario = $_SESSION["email"];
 
 	$sqlUpdate = "UPDATE permiso_horario_extendido SET fecha_expedicion='$fecha_expedicion', fecha_vencimiento='$fecha_vencimiento', estado='$estado_solicitud' WHERE cedula_propietario='$cedula_propietario'"; 
-		$result = pg_query($sqlUpdate);
+		$stm = $con->prepare($sqlUpdate);
+		$stm->execute();
 
+		if ($stm) {
 		echo "<script>alert('INSERCION EXITOSA')</script>";
+		}
+
 
 $mail = $email_propietario;
 //Titulo

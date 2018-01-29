@@ -14,13 +14,14 @@ if ($fecha == "") {
 }
 
 
-function encontrarArchivo($id){
-	$sql = "SELECT * FROM propietario_moto WHERE cedula_propietario = '".$id."'";
-$result = pg_query($sql);
-
-$datos = pg_fetch_array($result);
- 
-return $datos;
+function encontrarArchivo($prefijo,$campo,$propietario,$con){
+	$campo = $prefijo.".".$campo;
+	$sql = "SELECT $campo FROM empresa,propietario_moto,permiso_horario_extendido WHERE propietario_moto.cedula_propietario=permiso_horario_extendido.cedula_propietario AND permiso_horario_extendido.nit=empresa.nit AND propietario_moto.cedula_propietario=$propietario";
+	$stm = $con->prepare($sql);
+	$stm->execute();
+	#var_dump($stm);
+	$result = $stm->fetch();
+return $result;
 
 }
 
@@ -40,10 +41,11 @@ function buscarUserBD($user,$pass,$con)
 
 function buscarSolicitudesHE($con)
 {
-	$sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellidos,fecha_solicitud,propietario_moto.direccion,propietario_moto.telefono,email,estado FROM propietario_moto, permiso_horario_extendido, empresa where propietario_moto.cedula_propietario = permiso_horario_extendido.cedula_propietario and empresa.nit = permiso_horario_extendido.nit';
+	$sql = "SELECT permiso_horario_extendido.fecha_solicitud, permiso_horario_extendido.estado, propietario_moto.cedula_propietario, propietario_moto.nombre_propietario, propietario_moto.apellidos,propietario_moto.email,propietario_moto.telefono AS propietarioTelefono,empresa.nit,empresa.nit,empresa.nombre AS nombreEmpresa,empresa.telefono FROM permiso_horario_extendido INNER JOIN propietario_moto on permiso_horario_extendido.cedula_propietario = propietario_moto.cedula_propietario INNER JOIN empresa ON  permiso_horario_extendido.nit=empresa.nit";
 	$statement = $con->prepare($sql);
 	$statement->execute();
 	$result= $statement->fetchAll();
+	#var_dump($result);
 	return $result;
 }
 
@@ -64,17 +66,28 @@ function registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email
 
 function registrarE($nit,$carta,$con)
 {
-	$sql = "INSERT INTO empresa(nit,carta) VALUES ('".$nit."','".$carta."')";
+	$sql = "INSERT INTO empresa(nit,carta) VALUES (:nit,:carta)";
 	$statement = $con->prepare($sql);
+	$statement -> bindParam(':nit',$nit);
+	$statement -> bindParam(':carta',$carta);
 	$statement->execute();
 	return $statement;
 }
 
-function registrarPHE($cc,$nit,$con)
+function registrarSPHE($cc,$nit,$con)
 {
-	$sql = "INSERT INTO permiso_horario_extendido (fecha_solicitud,estado,cedula_propietario,nit) VALUES (CURRENT_DATE,'INICIADO','".$cc."','".$nit."')";
+	$estado = "Activo";
+	$fecha_sistema = Date("Y-m-d");
+	$sql = "INSERT INTO permiso_horario_extendido (id,fecha_solicitud,fecha_expedicion,estado,cedula_propietario,nit) 
+	VALUES
+		 (null,:fecha_solicitud,:fecha_expedicion,:estado,:cedula,:nit)";
 	     
 	$statement = $con->prepare($sql);
+	$statement->bindParam(':fecha_solicitud',$fecha_sistema);
+	$statement->bindParam(':fecha_expedicion',$fecha_sistema);
+	$statement->bindParam(':estado',$estado);
+	$statement->bindParam(':cedula',$cc);
+	$statement->bindParam(':nit',$nit);
 	$statement->execute();
 	return $statement;
 }

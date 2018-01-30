@@ -1,13 +1,15 @@
 <?php 
 session_start();
-require('cabecera.php');
-require('connect_bd.php');
+require_once 'cabecera.php';
+require_once 'config/config.php';
+require_once 'procesar/Conexion.php';
+
+$con = getConexion($bd_config);
 
 if(!$_SESSION) {
-	header('location:index.html');
+	header('location:index.php');
 }
  ?>
-
 <?php 
 /*mediante la matriz asociativa $_GET que es superglobal obtenemos el valor enviado*/
 
@@ -16,12 +18,13 @@ if(!$_SESSION) {
 //traemos todos los datos relacionados con este identificador de propietario, para mostrarlos al admin
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM propietario_moto, permiso_parrillero, parrillero WHERE propietario_moto.cedula_propietario = parrillero.cedula_propietario and propietario_moto.cedula_propietario = permiso_parrillero.cedula_propietario and propietario_moto.cedula_propietario='".$id."'";
+$sql = "SELECT * FROM permiso_parrillero INNER JOIN parrillero ON permiso_parrillero.parrillero_cedula_parrillero=parrillero.cedula_parrillero INNER JOIN propietario_moto ON permiso_parrillero.propietario_moto_cedula_propietario=propietario_moto.cedula_propietario WHERE propietario_moto.cedula_propietario=$id";
 
 //ejecutamos la consulta
-$result = pg_query($sql);
-
-$row = pg_fetch_array($result);
+$stm = $con->prepare($sql);
+$stm->execute();
+$row = $stm->fetch();
+#var_dump($row);
 $email = $row['email'];
 
 $_SESSION["id"] = $id;
@@ -46,16 +49,18 @@ $_SESSION["email"] = $email;
 	</div>
 
 	<div class="envoltura-datos-parri datos-area-archivos-propietario">
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=cedula_escaneada_propietario" target="_blank" >Cedula</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=foto" target="_blank" >Foto</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=tarjeta_propieda" target="_blank" >Tarjeta propiedad</a><br/>
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=certificado_vecinda" target="_blank" >Certificado vecindad</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=licensia_conduccion" target="_blank" >Licencia de conduccion</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=soat" target="_blank" >Soat</a><br/>
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=registro_civil" target="_blank" >Registro civil</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=seguro" target="_blank" >Seguro</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=passalvo_transito" target="_blank" >Pas y salvo transito</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=pasado_judicial" target="_blank" >Pasado judicial</a>&nbsp;
+
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=cedula_escaneada_propietario" target="_blank" >Cedula</a>&nbsp;
+
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=foto" target="_blank" >Foto</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=tarjeta_propieda" target="_blank" >Tarjeta propiedad</a><br/>
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=certificado_vecinda" target="_blank" >Certificado vecindad</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=licensia_conduccion" target="_blank" >Licencia de conduccion</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=soat" target="_blank" >Soat</a><br/>
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=registro_civil" target="_blank" >Registro civil</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=seguro" target="_blank" >Seguro</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=passalvo_transito" target="_blank" >Pas y salvo transito</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=propietario_moto&nombreC=pasado_judicial" target="_blank" >Pasado judicial</a>&nbsp;
 	</div>
 
 	<div class="envoltura-datos-parri datos-area-parrillero">
@@ -68,9 +73,13 @@ $_SESSION["email"] = $email;
 		APELIDOS: <?php echo $row['apellidos_parillero']; ?><br/>
 		EDAD: <?php echo $row['edad']; ?>&nbsp;
 		FECHA EXPEDICION: <?php echo $row['fecha_naci']; ?><br/>
-		<a href="archivo.php?cc=<?php echo $row['cedula_parrillero'];?>&llaves=cedula_parrillero&nombreT=parrillero&nombreC=pasado_judicial" target="_blank" >Pasado judicial</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_parrillero'];?>&llaves=cedula_parrillero&nombreT=parrillero&nombreC=cedula_scanner" target="_blank" >Cedula</a>&nbsp;
-		<a href="archivo.php?cc=<?php echo $row['cedula_parrillero'];?>&llaves=cedula_parrillero&nombreT=parrillero&nombreC=registro_civil" target="_blank" >Registro civil</a>&nbsp;
+
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=parrillero&nombreC=pasado_judicial" target="_blank" >Pasado judicial</a>&nbsp;
+
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=parrillero&nombreC=cedula_scanner" target="_blank" >Cedula</a>&nbsp;
+
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoP&nombreT=parrillero&nombreC=registro_civil" target="_blank" >Registro civil</a>&nbsp;
+		
 	</div>
 
 	<div class="envoltura-datos-parri datos-area-permiso-parrillero">
@@ -111,6 +120,6 @@ $_SESSION["email"] = $email;
 
  <?php 
  //cerramos la conexion
-	pg_close($link);
+	closeConexion($con);
 require('piedepagina.php');
   ?>

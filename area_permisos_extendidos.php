@@ -46,34 +46,33 @@ $_SESSION["documento"] = $cedula;
 	</div>
 <div class="envoltura-datos-parri datos-area-archivos-propietario">
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=cedula_escaneada_propietario" target="_blank" >Cedula</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=cedula_escaneada_propietario" target="_blank" >Cedula</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=foto&nombreT=propietario_moto&nombreC=foto" target="_blank" >Foto</a></td>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=foto" target="_blank" >Foto</a></td>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=tarjeta_propieda&nombreT=propietario_moto&nombreC=tarjeta_propieda" target="_blank" >Tarjeta propiedad</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=tarjeta_propieda" target="_blank" >Tarjeta propiedad</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=certificado_vecinda" target="_blank" >Certificado vecindad</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=certificado_vecinda" target="_blank" >Certificado vecindad</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=licensia_conduccion" target="_blank" >Licencia de conduccion</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=licensia_conduccion" target="_blank" >Licencia de conduccion</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=soat" target="_blank" >Soat</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=soat" target="_blank" >Soat</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=registro_civil" target="_blank" >Registro civil</a>&nbsp;
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=seguro" target="_blank" >Seguro</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=registro_civil" target="_blank" >Registro civil</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=seguro" target="_blank" >Seguro</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=passalvo_transito" target="_blank" >Pas y salvo transito</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=passalvo_transito" target="_blank" >Pas y salvo transito</a>&nbsp;
 
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=cedula_propietario&nombreT=propietario_moto&nombreC=pasado_judicial" target="_blank" >Pasado judicial</a>&nbsp;
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=propietario_moto&nombreC=pasado_judicial" target="_blank" >Pasado judicial</a>&nbsp;
 
 </div>
 
 <div class="envoltura-datos-parri datos-area-parrillero">
 	<!--datos parrillero
-		verificar si se necesita la variable 'llaves'
-		-->
+		verificar si se necesita la variable 'llaves'permisoH-->
 		<center><h2>Datos empresa</h2></center>
 		NIT: <?php echo $row['nit']; ?>
-		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=carta&nombreT=empresa&nombreC=carta" target="_blank" >Carta</a></p>
+		<a href="archivo.php?propietario=<?php echo $row['cedula_propietario'];?>&llaves=permisoH&nombreT=empresa&nombreC=carta" target="_blank" >Carta</a></p>
 </div>
 
 <div class="envoltura-datos-parri datos-area-permiso-parrillero">

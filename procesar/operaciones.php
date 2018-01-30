@@ -25,6 +25,18 @@ return $result;
 
 }
 
+function encontrarArchivoPP($prefijo,$campo,$propietario,$con){
+	$campo = $prefijo.".".$campo;
+	$sql = "SELECT $campo FROM parrillero,propietario_moto,permiso_parrillero WHERE propietario_moto.cedula_propietario=permiso_parrillero.propietario_moto_cedula_propietario AND permiso_parrillero.parrillero_cedula_parrillero=parrillero.cedula_parrillero AND propietario_moto.cedula_propietario=$propietario LIMIT 1";
+	$stm = $con->prepare($sql);
+	$stm->execute();
+	#var_dump($stm);
+	$result = $stm->fetch();
+	#var_dump($result);
+return $result;
+
+}
+
 function buscarUserBD($user,$pass,$con)
 {
 	$sql = "SELECT * FROM usuarios WHERE username=:usuario AND password=:password";
@@ -58,7 +70,7 @@ function registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email
 	    VALUES ('".$cc."','".$nombres."','".$apellidos."','".$fecha_nacimiento."','".$direccion."','".$email."','".$telefono."', '".$cedula."','".$tarjetaP."','".$certificadoV."','".$licenciaC."','".$soat."','".$registroC."','".$seguro."','".$passalvo."','".$pasadoJ."','".$foto."')";
 
 	$statement = $con->prepare($sql);
-	$statement->execute();
+	$statement = $statement->execute();
 	return $statement;	
 }
 
@@ -101,24 +113,30 @@ function registrarP($cc,$nit,$con)
 	return $statement;
 }
 
-function registrarParrillero($documento_parrillero,$nombres_parrillero,$apellidos_parillero,$edad_parrillero,$fecha_naci_parrillero,$pasado_judicial_parrillero,$documento_identida_parrillero,$registro_civil_parrillero,$cc,$con)
+function registrarParrillero($documento_parrillero,$nombres_parrillero,$apellidos_parrillero,$edad_parrillero,$fecha_naci_parrillero,$pasado_judicial_parrillero,$documento_identida_parrillero,$registro_civil_parrillero,$con)
 {
-	$sqlP = "INSERT INTO parrillero(
+	$sql = "INSERT INTO parrillero(
             cedula_parrillero, nombres_parrillero, apellidos_parillero, edad, 
-            fecha_naci, pasado_judicial, cedula_scanner, registro_civil, 
-            cedula_propietario) VALUES('".$documento_parrillero."','".$nombres_parrillero."','".$apellidos_parrillero."','".$edad_parrillero."','".$fecha_naci_parrillero."','".$pasado_judicial_parrillero."','".$documento_identida_parrillero."','".$registro_civil_parrillero."','".$cc."')";
+            fecha_naci, pasado_judicial, cedula_scanner, registro_civil) 
+            VALUES('".$documento_parrillero."','".$nombres_parrillero."','".$apellidos_parrillero."','".$edad_parrillero."','".$fecha_naci_parrillero."','".$pasado_judicial_parrillero."','".$documento_identida_parrillero."','".$registro_civil_parrillero."')";
 
-            $statement = $con->prepare($sql);
-	$statement->execute();
+    $statement = $con->prepare($sql);
+	$statement = $statement->execute();
 	return $statement;
 }
 
-function registrarPermisoParrillero($cc,$con)
+function registrarPermisoParrillero($cc,$documento_parrillero,$con)
 {
-	$sqlPP = "INSERT INTO permiso_parrillero (fecha_solicitud,estado,cedula_propietario) VALUES (CURRENT_DATE,'INICIADO','".$cc."')";
+	$fecha_solicitud = Date("Y-m-d");
+	$estado = "Activo";
+	$sql = "INSERT INTO permiso_parrillero (id,fecha_solicitud,estado,propietario_moto_cedula_propietario,parrillero_cedula_parrillero) VALUES (null,:fecha_solicitud,:estado,:propietario_moto_cedula_propietario,:parrillero_cedula_parrillero)";
 
-	 $statement = $con->prepare($sql);
-	$statement->execute();
+	$statement = $con->prepare($sql);
+	$statement->bindParam(':fecha_solicitud',$fecha_solicitud);
+	$statement->bindParam(':estado',$estado);
+	$statement->bindParam(':propietario_moto_cedula_propietario',$cc);
+	$statement->bindParam(':parrillero_cedula_parrillero',$documento_parrillero);
+	$statement = $statement->execute();
 	return $statement;
 
 

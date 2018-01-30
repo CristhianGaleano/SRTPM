@@ -1,6 +1,9 @@
 <?php 
 session_start();
-require('connect_bd.php');
+require_once 'config/config.php';
+require_once 'procesar/Conexion.php';
+
+$con = getConexion($bd_config);
 
 if (isset($_POST['cambiar'])) {
 	$fecha_expedicion = $_POST['fecha_expedicion'];
@@ -12,10 +15,14 @@ if (isset($_POST['cambiar'])) {
 $cedula_propietario = $_SESSION["id"];
 $email_propietario = $_SESSION["email"];
 
-	$sqlUpdate = "UPDATE permiso_parrillero SET fecha_expedicion='$fecha_expedicion', fecha_vencimiento='$fecha_vencimiento', estado='$estado_solicitud' WHERE cedula_propietario='$cedula_propietario'"; 
-		$result = pg_query($sqlUpdate);
+	$sqlUpdate = "UPDATE permiso_parrillero SET fecha_expedicion='$fecha_expedicion', fecha_vencimiento='$fecha_vencimiento', estado='$estado_solicitud' WHERE propietario_moto_cedula_propietario='$cedula_propietario'"; 
+		$stm = $con->prepare($sqlUpdate);
+		$stm->execute();
 
+		if ($stm) {
 		echo "<script>alert('INSERCION EXITOSA')</script>";
+		}
+		
 
 $mail = $email_propietario;
 //Titulo
@@ -33,9 +40,6 @@ if($bool){
 }else{
     echo "<script>alert('ERROR AL ENVIAR CORREO ')</script>";
 }
-
-
-
 	header('location: solicitud_parrillero.php');
 }
 

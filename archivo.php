@@ -16,8 +16,14 @@ $nombreC = $_GET['nombreC'] ;
 
 //echo "Column: ".$nombreC. " <br/> nombreT: " .$nombreT. "<br/>  propietario:  " .$propietario. "<br/>  llaves: " .$llaves ;
 
-//metodo donde hago la consulta a la BD
-$datos = encontrarArchivo($nombreT,$nombreC,$propietario,$con);
+	if ($llaves=="permisoH") {
+	//metodo donde hago la consulta a la BD
+	$datos = encontrarArchivo($nombreT,$nombreC,$propietario,$con);
+		
+	}else{
+		#echo "Buscando archivo PP";
+		$datos = encontrarArchivoPP($nombreT,$nombreC,$propietario,$con);
+	}
 
 require_once 'cabecera.php';
 ?>

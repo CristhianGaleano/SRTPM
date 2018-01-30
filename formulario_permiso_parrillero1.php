@@ -1,7 +1,8 @@
 <?php
-	require('procesar/Conexio.php');
-	require('procesar/operaciones.php');
-	$con = getConexion();
+	require_once 'config/config.php';
+	require_once 'procesar/Conexion.php';
+	require_once 'procesar/operaciones.php';
+	$con = getConexion($bd_config);
 ?>
 
 <!DOCTYPE html>
@@ -319,30 +320,35 @@ if (isset($_POST['upload']) && $error==false)
 	$fecha_naci_parrillero = $_POST['fecha_naci_parrillero'];
 */
 
+	$resultP = registrarParrillero($documento_parrillero,$nombres_parrillero,$apellidos_parrillero,$edad_parrillero,$fecha_naci_parrillero,$pasado_judicial_parrillero,$documento_identida_parrillero,$registro_civil_parrillero,$con);
 
 	$resultPM = registrarPM($cc,$nombres,$apellidos,$fecha_nacimiento,$direccion,$email,$telefono,$cedula,$tarjetaP,$certificadoV,$licenciaC,$soat,$registroC,$seguro,$passalvo,$pasadoJ,$foto,$con); 
 
-	$resultP = registrarParrillero($documento_parrillero,$nombres_parrillero,$apellidos_parillero,$edad_parrillero,$fecha_naci_parrillero,$pasado_judicial_parrillero,$documento_identida_parrillero,$registro_civil_parrillero,$cc,$con);
 
-	$resultPP = registrarPermisoParrillero($cc,$con);
-
+	$resultPP = registrarPermisoParrillero($cc,$documento_parrillero,$con);
+	#var_dump($resultP);
+	#var_dump($resultPM);
+	#var_dump($resultPP);
 	
-		if ($result && $resultP && $resultPP) {
+		if ($resultPM && $resultP && $resultPP) {
 			echo '<script>alert("Enviando datos...")</script> ';
+			echo "<script>location.href='index.php';</script>";
 			
-		}else
+		}else{
 		echo '<script>alert("ha ocurrido un error")</script> ';
+		echo "<script>location.href='formulario_permiso_parrillero1.php';</script>";
+	}
 
 	// Si los datos son correctos, procesar formulario
-	if (isset($_POST['upload']) && $error==false)
+	/*if (isset($_POST['upload']) && $error==false)
 	{
       echo ("<h1>Los datos se subieron con exito</h1>\n\n");
-      echo ("<p>En los proximos dias te llegara un correo con la respuesta a su solicitud</h1>\n");
+      echo ("<p>En los proximos dias recibira un correo con la respuesta a su solicitud</h1>\n");
       echo ("<p>Muchas gracias</p>\n");
-      echo ("<P>[ <A HREF='index.html'>Regresar al inicio</A> ]</P>\n");
-    }
+      echo ("<P>[ <A HREF='index.php'>Regresar al inicio</A> ]</P>\n");
+    }*/
     //cerramos la conexion
-	pg_close($link);
+	closeConexion($con);
 
 }
 else

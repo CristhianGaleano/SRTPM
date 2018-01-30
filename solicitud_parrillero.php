@@ -1,15 +1,22 @@
 <?php
-require('cabecera.php');
-require('connect_bd.php');
 session_start();
+require_once 'cabecera.php';
+require_once 'config/config.php';
+require_once 'procesar/Conexion.php';
+
+$con = getConexion($bd_config);
 
 if (!$_SESSION) {
 	header("location:index.html");
 }
 
 
-$sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellidos,fecha_solicitud,direccion,telefono,email,estado FROM propietario_moto, permiso_parrillero where propietario_moto.cedula_propietario = permiso_parrillero.cedula_propietario';
-        $consulta = pg_query($sql) or die ('Error query' . pg_last_error());
+$sql = "SELECT permiso_parrillero.fecha_solicitud,permiso_parrillero.estado,parrillero.cedula_parrillero,propietario_moto.cedula_propietario,propietario_moto.nombre_propietario,propietario_moto.apellidos,propietario_moto.email,propietario_moto.telefono,propietario_moto.direccion FROM permiso_parrillero INNER JOIN parrillero ON permiso_parrillero.parrillero_cedula_parrillero=parrillero.cedula_parrillero INNER JOIN propietario_moto ON permiso_parrillero.propietario_moto_cedula_propietario=propietario_moto.cedula_propietario";
+    
+
+    $stm = $con->prepare($sql);
+    $stm->execute();
+    $result = $stm->fetchAll();
 
 ?>
 
@@ -36,7 +43,7 @@ $sql = 'SELECT  propietario_moto.cedula_propietario,nombre_propietario, apellido
       
         </thead>
         <tbody>
-            <?php while ($row = pg_fetch_array($consulta)) { ?>
+            <?php foreach ($result as $row) {?>
             <tr>
 
                 <td id="row1"><?php echo $row['cedula_propietario'];?></td>
